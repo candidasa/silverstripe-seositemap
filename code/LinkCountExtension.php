@@ -15,7 +15,7 @@ class LinkCountExtension extends DataObjectDecorator {
 		if (!self::$wrote) {
 			self::$wrote = true;    //prevent infinite recursion
 			
-			$links = SitemapPage::countLinksOnPage($this->owner);
+			$links = SEOSitemapPage::countLinksOnPage($this->owner);
 			$this->owner->LinkCount = $links;
 			$this->owner->writeWithoutVersion();
 		}
