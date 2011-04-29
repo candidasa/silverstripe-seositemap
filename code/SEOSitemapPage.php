@@ -1,5 +1,5 @@
 <?php
-class SitemapPage extends SiteTree {
+class SEOSitemapPage extends SiteTree {
 
 	static $allPagesCache = array();
 
@@ -11,7 +11,7 @@ class SitemapPage extends SiteTree {
 	}
 
 	public static function countLinksOnPage($page) {
-		if ($page->ClassName != "SitemapPage") { //don't count the sitemap page, otherwise we get unlimited recursion
+		if ($page->ClassName != "SEOSitemapPage") { //don't count the sitemap page, otherwise we get unlimited recursion
 			$pageHTML = Director::test(Director::absoluteURL($page->Link()));
 			$numberOfLinks = substr_count($pageHTML->getBody(), '<a');
 			return $numberOfLinks;
@@ -24,7 +24,7 @@ class SitemapPage extends SiteTree {
 		foreach(self::$allPagesCache as $id => $links) {
 			if ($links == null || $links == 0) {
 				$page = DataObject::get_by_id("SiteTree",$id);
-				if ($page && $page->ClassName != "SitemapPage") {
+				if ($page && $page->ClassName != "SEOSitemapPage") {
 					$page->LinkCount = self::countLinksOnPage($page);
 					$page->write();
 				}
@@ -126,7 +126,7 @@ class SitemapPage extends SiteTree {
 	
 }
 
-class SitemapPage_Controller extends ContentController {
+class SEOSitemapPage_Controller extends ContentController {
 
 	static $allows_actions = array('recountAll');
 
